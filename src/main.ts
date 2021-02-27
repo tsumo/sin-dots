@@ -17,7 +17,7 @@ const init = () => {
     return;
   }
   const render = new Render(canvas, ctx);
-  const pattern = new Pattern(render);
+  new Pattern(render);
 };
 
 init();
