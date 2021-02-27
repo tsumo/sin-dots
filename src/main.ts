@@ -15,7 +15,8 @@ const init = () => {
     console.error("Cannot get 2d context");
     return;
   }
-  new Render(canvas, ctx);
+  const render = new Render(canvas, ctx);
+  render.dot(30, 30, 15);
 };
 
 init();

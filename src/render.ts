@@ -1,6 +1,6 @@
 export class Render {
-  canvas: HTMLCanvasElement;
-  ctx: CanvasRenderingContext2D;
+  private readonly canvas: HTMLCanvasElement;
+  private readonly ctx: CanvasRenderingContext2D;
 
   private readonly boundResizeListener: VoidFunction;
 
@@ -18,5 +18,11 @@ export class Render {
     const rect = this.canvas.getBoundingClientRect();
     this.canvas.width = rect.width;
     this.canvas.height = rect.height;
+  }
+
+  dot(x: number, y: number, r: number) {
+    this.ctx.beginPath();
+    this.ctx.arc(x, y, r, 0, Math.PI * 2);
+    this.ctx.fill();
   }
 }
