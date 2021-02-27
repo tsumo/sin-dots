@@ -1,4 +1,5 @@
 import { Render } from "./render";
+import { Pattern } from "./pattern";
 
 const init = () => {
   const canvas = document.getElementById("c");
@@ -16,7 +17,7 @@ const init = () => {
     return;
   }
   const render = new Render(canvas, ctx);
-  render.dot(30, 30, 15);
+  const pattern = new Pattern(render);
 };
 
 init();
