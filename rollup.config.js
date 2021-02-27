@@ -1,13 +1,14 @@
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import { terser } from "rollup-plugin-terser";
+import typescript from "@rollup/plugin-typescript";
 
 // `npm run build` -> `production` is true
 // `npm run dev` -> `production` is false
 const production = !process.env.ROLLUP_WATCH;
 
 export default {
-  input: "src/main.js",
+  input: "src/main.ts",
   output: {
     file: "public/bundle.js",
     format: "iife", // immediately-invoked function expression — suitable for <script> tags
@@ -16,6 +17,7 @@ export default {
   plugins: [
     resolve(), // tells Rollup how to find packages in node_modules
     commonjs(), // converts packages to ES modules
+    typescript(),
     production && terser(), // minify, but only in production
   ],
 };
