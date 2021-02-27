@@ -25,4 +25,8 @@ export class Render {
     this.ctx.arc(x, y, r, 0, Math.PI * 2);
     this.ctx.fill();
   }
+
+  clear() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
 }
