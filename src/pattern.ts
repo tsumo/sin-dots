@@ -20,6 +20,8 @@ export class Pattern {
 
   private readonly columns = 8;
   private readonly rows = 8;
+  private minRadius = 0.7;
+  private maxRadius = 2.6;
 
   private pointRows: PointRow[] = [];
 
@@ -30,7 +32,7 @@ export class Pattern {
       const points: Point[] = [];
       const yOffset = i / this.rows - 0.5 + 1 / this.rows / 2;
       const amplitude = 0.42;
-      const radius = i * 1.8 + 0.7;
+      const radius = i * (this.maxRadius - this.minRadius) + this.minRadius;
       for (let j = 0; j < this.columns; j += 1) {
         points.push({
           x: j / this.columns - 0.5 + 1 / this.columns / 2,
