@@ -18,10 +18,10 @@ type PointRow = {
 export class Pattern {
   private readonly render: Render;
 
-  private readonly columns = 8;
-  private readonly rows = 8;
-  private minRadius = 0.7;
-  private maxRadius = 2.6;
+  private readonly columns = 30;
+  private readonly rows = 20;
+  private minRadius = 1.0;
+  private maxRadius = 1.3;
 
   private pointRows: PointRow[] = [];
 
@@ -30,12 +30,12 @@ export class Pattern {
 
     for (let i = 0; i < this.rows; i += 1) {
       const points: Point[] = [];
-      const yOffset = i / this.rows - 0.5 + 1 / this.rows / 2;
+      const yOffset = (i / this.rows - 0.5 + 1 / this.rows / 2) * 2;
       const amplitude = 0.42;
       const radius = i * (this.maxRadius - this.minRadius) + this.minRadius;
       for (let j = 0; j < this.columns; j += 1) {
         points.push({
-          x: j / this.columns - 0.5 + 1 / this.columns / 2,
+          x: (j / this.columns - 0.5 + 1 / this.columns / 2) * 2,
           y: 0,
           phaseShift: j * 0.15,
         });
