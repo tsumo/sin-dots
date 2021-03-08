@@ -3,18 +3,16 @@ import { Render } from "./render";
 const { sin } = Math;
 
 type Point = {
-  x: number;
+  readonly x: number;
   y: number;
-  phaseShift: number;
+  readonly phaseShift: number;
 };
 
 type PointRow = {
-  points: Point[];
-  xOffset: number;
-  yOffset: number;
-  amplitude: number;
-  repeats: number;
-  radius: number;
+  readonly points: Point[];
+  readonly yOffset: number;
+  readonly amplitude: number;
+  readonly radius: number;
 };
 
 export class Pattern {
@@ -30,31 +28,27 @@ export class Pattern {
 
     for (let i = 0; i < this.rows; i += 1) {
       const points: Point[] = [];
-      const xOffset = 0;
-      const yOffset = 0;
-      const amplitude = 0.2;
-      const repeats = 4.4;
+      const yOffset = i / this.rows - 0.5 + 1 / this.rows / 2;
+      const amplitude = 0.42;
       const radius = i * 1.8 + 0.7;
       for (let j = 0; j < this.columns; j += 1) {
         points.push({
           x: j / this.columns - 0.5 + 1 / this.columns / 2,
-          y: i / this.rows - 0.5 + 1 / this.rows / 2,
-          phaseShift: j * repeats,
+          y: 0,
+          phaseShift: j * 0.15,
         });
       }
       this.pointRows.push({
         points,
-        xOffset,
         yOffset,
         amplitude,
-        repeats,
         radius,
       });
     }
     // console.log(this.pointRows);
 
     const tick = () => {
-      // this.updatePoints(performance.now() * 0.002);
+      this.updatePoints(performance.now() * 0.002);
       this.draw();
       window.requestAnimationFrame(tick);
     };
@@ -64,7 +58,7 @@ export class Pattern {
   private updatePoints(t: number) {
     this.pointRows.forEach((row) => {
       row.points.forEach((point) => {
-        point.y = sin(t + point.phaseShift) * row.amplitude + row.yOffset;
+        point.y = sin(t + point.phaseShift) * row.amplitude;
       });
     });
   }
@@ -73,7 +67,7 @@ export class Pattern {
     this.render.clear();
     this.pointRows.forEach((row) => {
       row.points.forEach(({ x, y }) => {
-        this.render.dot(x + row.xOffset, y + row.yOffset, row.radius);
+        this.render.dot(x, y + row.yOffset, row.radius);
       });
     });
   }
