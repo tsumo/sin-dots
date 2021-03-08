@@ -40,7 +40,7 @@ export class Pattern {
         points.push({
           x: jRatio * 2 - 1,
           y: 0,
-          phaseShift: j * 0.45,
+          phaseShift: jRatio * 10,
         });
       }
       this.pointRows.push({
@@ -53,7 +53,7 @@ export class Pattern {
     // console.log(this.pointRows);
 
     const tick = () => {
-      // this.updatePoints(performance.now() * 0.002);
+      this.updatePoints(performance.now() * 0.002);
       this.draw();
       window.requestAnimationFrame(tick);
     };
