@@ -20,22 +20,25 @@ type PointRow = {
 export class Pattern {
   private readonly render: Render;
 
+  private readonly columns = 8;
+  private readonly rows = 8;
+
   private pointRows: PointRow[] = [];
 
   constructor(render: Render) {
     this.render = render;
 
-    for (let i = 0; i <= 1; i += 0.05) {
+    for (let i = 0; i < this.rows; i += 1) {
       const points: Point[] = [];
       const xOffset = 0;
-      const yOffset = i - 0.5;
+      const yOffset = 0;
       const amplitude = 0.2;
       const repeats = 4.4;
-      const radius = i * 5 + 5;
-      for (let j = -1; j <= 1; j += 0.1) {
+      const radius = i * 1.8 + 0.7;
+      for (let j = 0; j < this.columns; j += 1) {
         points.push({
-          x: j + xOffset,
-          y: yOffset,
+          x: j / this.columns - 0.5 + 1 / this.columns / 2,
+          y: i / this.rows - 0.5 + 1 / this.rows / 2,
           phaseShift: j * repeats,
         });
       }
@@ -51,7 +54,7 @@ export class Pattern {
     // console.log(this.pointRows);
 
     const tick = () => {
-      this.updatePoints(performance.now() * 0.002);
+      // this.updatePoints(performance.now() * 0.002);
       this.draw();
       window.requestAnimationFrame(tick);
     };
@@ -70,7 +73,7 @@ export class Pattern {
     this.render.clear();
     this.pointRows.forEach((row) => {
       row.points.forEach(({ x, y }) => {
-        this.render.dot(x, y, row.radius);
+        this.render.dot(x + row.xOffset, y + row.yOffset, row.radius);
       });
     });
   }
